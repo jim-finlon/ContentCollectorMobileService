@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
-using ContentCollector.Azure.DataObjects;
 using ContentCollector.Azure.Models;
 using Owin;
 
@@ -23,7 +21,10 @@ namespace ContentCollector.Azure
                 .ApplyTo(config);
 
             // Use Entity Framework Code First to create database tables based on your DbContext
-            Database.SetInitializer(new MobileServiceInitializer());
+            //Database.SetInitializer(new MobileServiceInitializer());
+      
+            var migrator = new DbMigrator(new Migrations.Configuration());
+            migrator.Update();
 
             MobileAppSettingsDictionary settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
@@ -48,18 +49,18 @@ namespace ContentCollector.Azure
     {
         protected override void Seed(MobileServiceContext context)
         {
-            List<TodoItem> todoItems = new List<TodoItem>
-            {
-                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "First item", Complete = false },
-                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "Second item", Complete = false }
-            };
+            //List<Location> todoItems = new List<Location>
+            //{
+            //    new Location { Id = Guid.NewGuid().ToString(), Text = "First item", Complete = false },
+            //    new Location { Id = Guid.NewGuid().ToString(), Text = "Second item", Complete = false }
+            //};
 
-            foreach (TodoItem todoItem in todoItems)
-            {
-                context.Set<TodoItem>().Add(todoItem);
-            }
+            //foreach (Location todoItem in todoItems)
+            //{
+            //    context.Set<Location>().Add(todoItem);
+            //}
 
-            base.Seed(context);
+            //base.Seed(context);
         }
     }
 }

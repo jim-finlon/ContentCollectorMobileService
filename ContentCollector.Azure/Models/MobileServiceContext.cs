@@ -20,13 +20,13 @@ namespace ContentCollector.Azure.Models
         // service name, set by the 'MS_MobileServiceName' AppSettings in the local 
         // Web.config, is the same as the service name when hosted in Azure.
 
-        private const string connectionStringName = "Name=MS_TableConnectionString";
+        private const string connectionStringName = "Name=DefaultConnectionString";
 
         public MobileServiceContext() : base(connectionStringName)
         {
         }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<Location> Locations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
