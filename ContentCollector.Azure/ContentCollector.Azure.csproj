@@ -205,9 +205,9 @@
     <Compile Include="App_Start\Startup.MobileApp.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="DataObjects\Location.cs" />
-    <Compile Include="Migrations\201608291932099_Initial.cs" />
-    <Compile Include="Migrations\201608291932099_Initial.Designer.cs">
-      <DependentUpon>201608291932099_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201608292111280_Initial.cs" />
+    <Compile Include="Migrations\201608292111280_Initial.Designer.cs">
+      <DependentUpon>201608292111280_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MobileServiceContext.cs" />
@@ -215,7 +215,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -233,8 +235,8 @@
     <None Include="Properties\PublishProfiles\contentcollector - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608291932099_Initial.resx">
-      <DependentUpon>201608291932099_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608292111280_Initial.resx">
+      <DependentUpon>201608292111280_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

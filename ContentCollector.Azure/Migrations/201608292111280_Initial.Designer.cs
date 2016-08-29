@@ -13,12 +13,12 @@ namespace ContentCollector.Azure.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201608291932099_Initial"; }
+            get { return "201608292111280_Initial"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target

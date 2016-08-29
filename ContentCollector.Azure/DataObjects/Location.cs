@@ -17,6 +17,5 @@ namespace ContentCollector.Azure.DataObjects
 
         public string Geolocation { get; set; }
 
-        public DateTime CreatedTimeStamp { get; set; }
     }
 }

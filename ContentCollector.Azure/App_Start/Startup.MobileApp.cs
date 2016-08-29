@@ -11,10 +11,6 @@ using Microsoft.Azure.Mobile.Server.Config;
 using ContentCollector.Azure.Models;
 using Owin;
 
-
-
-
-
 namespace ContentCollector.Azure
 {
     public partial class Startup
