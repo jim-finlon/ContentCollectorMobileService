@@ -27,7 +27,6 @@ namespace ContentCollector.Azure.Migrations
                         Longitude = c.Double(nullable: false),
                         Altitude = c.Double(nullable: false),
                         Geolocation = c.String(),
-                        CreatedTimeStamp = c.DateTime(nullable: false),
                         Version = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion",
                             annotations: new Dictionary<string, AnnotationValues>
                             {
