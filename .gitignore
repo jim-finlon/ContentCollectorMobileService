@@ -243,3 +243,8 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+**/node_modules/*
+**/bower_components/*
+**/.idea/*
+
