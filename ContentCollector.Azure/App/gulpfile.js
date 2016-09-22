@@ -6,6 +6,9 @@ var cleanCSS = require('gulp-clean-css');
 var rename = require("gulp-rename");
 var uglify = require('gulp-uglify');
 var pkg = require('./package.json');
+var wiredep = require('wiredep');
+var inject = require('gulp-inject');
+var concat = require('gulp-concat');
 
 // Set the banner content
 var banner = ['/*!\n',
@@ -21,7 +24,7 @@ gulp.task('less', function() {
     return gulp.src('less/sb-admin-2.less')
         .pipe(less())
         .pipe(header(banner, { pkg: pkg }))
-        .pipe(gulp.dest('dist/css'))
+        .pipe(gulp.dest('./css'))
         .pipe(browserSync.reload({
             stream: true
         }))
@@ -32,7 +35,7 @@ gulp.task('minify-css', ['less'], function() {
     return gulp.src('dist/css/sb-admin-2.css')
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest('dist/css'))
+        .pipe(gulp.dest('./css'))
         .pipe(browserSync.reload({
             stream: true
         }))
@@ -60,21 +63,6 @@ gulp.task('minify-js', ['js'], function() {
         }))
 });
 
-// Copy vendor libraries from /bower_components into /vendor
-gulp.task('copy', function() {
-    gulp.src(['bower_components/bootstrap/dist/**/*', '!**/npm.js', '!**/bootstrap-theme.*', '!**/*.map'])
-        .pipe(gulp.dest('vendor/bootstrap'))
-
-    gulp.src(['bower_components/font-awesome/**/*', '!bower_components/font-awesome/*.json', '!bower_components/font-awesome/.*'])
-        .pipe(gulp.dest('vendor/font-awesome'))
-
-    gulp.src(['bower_components/jquery/dist/jquery.js', 'bower_components/jquery/dist/jquery.min.js'])
-        .pipe(gulp.dest('vendor/jquery'))
-
-    gulp.src(['bower_components/metisMenu/dist/*'])
-        .pipe(gulp.dest('vendor/metisMenu'))
-
-})
 
 // Run everything
 gulp.task('default', ['minify-css', 'minify-js', 'copy']);
@@ -97,3 +85,47 @@ gulp.task('dev', ['browserSync', 'less', 'minify-css', 'js', 'minify-js'], funct
     gulp.watch('pages/*.html', browserSync.reload);
     gulp.watch('dist/js/*.js', browserSync.reload);
 });
+
+gulp.task('buildProd', ['less'], buildProd);
+
+function buildProd(){
+    var target = gulp.src('./pages/index.html');
+    var js = gulp.src(wiredep().js);
+    var css = gulp.src(wiredep().css);
+
+    return target
+        .pipe(inject(js.pipe(concat('bower.js'))
+            .pipe(uglify())
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest('./dist/js')), {name: 'bower'}
+            ))
+        .pipe(inject(gulp.src('js/**/*')
+            .pipe(concat('app.js'))
+            .pipe(uglify())
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest('./dist/js'))
+        ))
+        .pipe(inject(css
+            .pipe(concat('bower.css'))
+            .pipe(cleanCSS({ compatibility: 'ie8'}))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest('./dist/css')), {name: 'bower'}
+            ))
+        .pipe(inject(gulp.src('css/**/*')
+            .pipe(concat('app.css'))
+            .pipe(cleanCSS({compatibility: 'ie8'}))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest('./dist/css'))
+        ))
+        .pipe(gulp.dest('.'));
+}
+
+gulp.task('buildServeProd', ['buildProd'], serve);
+
+function serve(){
+    browserSync.init({
+        server: {
+            baseDir: ''
+        },
+    })
+}
