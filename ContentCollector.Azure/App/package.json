@@ -14,10 +14,13 @@
     "gulp-clean-css": "^2.0.10",
     "gulp-concat": "^2.6.0",
     "gulp-header": "^1.8.7",
-    "gulp-inject": "^4.1.0",
+    "gulp-jshint": "^2.0.1",
     "gulp-less": "^3.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.4",
+    "jscs": "^3.0.7",
+    "jshint": "^2.9.3",
+    "jshint-stylish": "^2.2.1",
     "wiredep": "^4.0.0"
   },
   "repository": {

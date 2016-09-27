@@ -9,6 +9,9 @@ var pkg = require('./package.json');
 var wiredep = require('wiredep');
 var inject = require('gulp-inject');
 var concat = require('gulp-concat');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
+var jscs = require('gulp-jscs');
 
 // Set the banner content
 var banner = ['/*!\n',
@@ -76,17 +79,42 @@ gulp.task('browserSync', function() {
     })
 })
 
-// Dev task with browserSync
-gulp.task('dev', ['browserSync', 'less', 'minify-css', 'js', 'minify-js'], function() {
-    gulp.watch('less/*.less', ['less']);
-    gulp.watch('dist/css/*.css', ['minify-css']);
-    gulp.watch('js/*.js', ['minify-js']);
+
+gulp.task('dev', ['browserSync', 'less', 'buildDev'], function() {
+    gulp.watch('less/*.less', ['less', 'buildDev']);
+    gulp.watch('css/*.css', ['buildDev']);
+    gulp.watch('js/**/*.js', ['buildDev']);
     // Reloads the browser whenever HTML or JS files change
     gulp.watch('pages/*.html', browserSync.reload);
     gulp.watch('dist/js/*.js', browserSync.reload);
 });
 
-gulp.task('buildProd', ['less'], buildProd);
+gulp.task('buildDev', ['less', 'style'],  buildDev);
+
+function buildDev(){
+    var target = gulp.src('./pages/index.html');
+    var js = gulp.src(wiredep().js);
+    var css = gulp.src(wiredep().css);
+
+    return target
+        .pipe(inject(js
+            .pipe(gulp.dest('./dist/js')), {name: 'bower'}
+        ))
+        .pipe(inject(gulp.src('js/**/*')
+            .pipe(gulp.dest('./dist/js'))
+        ))
+        .pipe(inject(css
+            .pipe(gulp.dest('./dist/css')), {name: 'bower'}
+        ))
+        .pipe(inject(gulp.src('css/**/*')
+            .pipe(gulp.dest('./dist/css'))
+        ))
+        .pipe(gulp.dest('.'));
+};
+
+gulp.task('buildServeDev', ['buildDev'],  serve);
+
+gulp.task('buildProd', ['less', 'style'], buildProd);
 
 function buildProd(){
     var target = gulp.src('./pages/index.html');
@@ -128,4 +156,13 @@ function serve(){
             baseDir: ''
         },
     })
+}
+
+gulp.task('style', jsStyle);
+
+function jsStyle(){
+ return gulp.src('js/**/*.js')
+     .pipe(jshint())
+     .pipe(jshint.reporter(stylish, {verbose: true}))
+     .pipe(jscs());
 }
