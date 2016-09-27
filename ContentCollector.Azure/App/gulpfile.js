@@ -98,16 +98,16 @@ function buildDev(){
 
     return target
         .pipe(inject(js
-            .pipe(gulp.dest('./dist/js')), {name: 'bower'}
+            .pipe(gulp.dest('./dist/js')), {name: 'bower',  addRootSlash: false}
         ))
         .pipe(inject(gulp.src('js/**/*')
-            .pipe(gulp.dest('./dist/js'))
+            .pipe(gulp.dest('./dist/js')), {addRootSlash: false}
         ))
         .pipe(inject(css
-            .pipe(gulp.dest('./dist/css')), {name: 'bower'}
+            .pipe(gulp.dest('./dist/css')), {name: 'bower', addRootSlash: false}
         ))
         .pipe(inject(gulp.src('css/**/*')
-            .pipe(gulp.dest('./dist/css'))
+            .pipe(gulp.dest('./dist/css')), {addRootSlash: false}
         ))
         .pipe(gulp.dest('.'));
 };
@@ -125,25 +125,25 @@ function buildProd(){
         .pipe(inject(js.pipe(concat('bower.js'))
             .pipe(uglify())
             .pipe(rename({suffix: '.min'}))
-            .pipe(gulp.dest('./dist/js')), {name: 'bower'}
+            .pipe(gulp.dest('./dist/js')), {name: 'bower', addRootSlash: false}
             ))
         .pipe(inject(gulp.src('js/**/*')
             .pipe(concat('app.js'))
             .pipe(uglify())
             .pipe(rename({suffix: '.min'}))
-            .pipe(gulp.dest('./dist/js'))
+            .pipe(gulp.dest('./dist/js')), {addRootSlash: false}
         ))
         .pipe(inject(css
             .pipe(concat('bower.css'))
             .pipe(cleanCSS({ compatibility: 'ie8'}))
             .pipe(rename({suffix: '.min'}))
-            .pipe(gulp.dest('./dist/css')), {name: 'bower'}
+            .pipe(gulp.dest('./dist/css')), {name: 'bower', addRootSlash: false}
             ))
         .pipe(inject(gulp.src('css/**/*')
             .pipe(concat('app.css'))
             .pipe(cleanCSS({compatibility: 'ie8'}))
             .pipe(rename({suffix: '.min'}))
-            .pipe(gulp.dest('./dist/css'))
+            .pipe(gulp.dest('./dist/css')), {addRootSlash: false}
         ))
         .pipe(gulp.dest('.'));
 }
