@@ -215,6 +215,32 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\dist\css\app.min.css" />
+    <Content Include="App\dist\css\bootstrap.css" />
+    <Content Include="App\dist\css\bower.min.css" />
+    <Content Include="App\dist\css\font-awesome.min.css" />
+    <Content Include="App\dist\css\metisMenu.css" />
+    <Content Include="App\dist\css\sb-admin-2.css" />
+    <Content Include="App\dist\css\styles.css" />
+    <Content Include="App\dist\fonts\fontawesome-webfont.svg" />
+    <Content Include="App\dist\js\angular-google-maps.js" />
+    <Content Include="App\dist\js\angular-simple-logger.js" />
+    <Content Include="App\dist\js\angular.js" />
+    <Content Include="App\dist\js\app.js" />
+    <Content Include="App\dist\js\app.min.js" />
+    <Content Include="App\dist\js\bootstrap.js" />
+    <Content Include="App\dist\js\bower.min.js" />
+    <Content Include="App\dist\js\infobox.js" />
+    <Content Include="App\dist\js\jquery.js" />
+    <Content Include="App\dist\js\keydragzoom.js" />
+    <Content Include="App\dist\js\lodash.js" />
+    <Content Include="App\dist\js\markerclusterer.js" />
+    <Content Include="App\dist\js\markerwithlabel.js" />
+    <Content Include="App\dist\js\metisMenu.js" />
+    <Content Include="App\dist\js\richmarker.js" />
+    <Content Include="App\dist\js\sb-admin-2.js" />
+    <Content Include="App\dist\js\services\locationRepository.js" />
+    <Content Include="App\index.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -232,6 +258,11 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\dist\fonts\fontawesome-webfont.eot" />
+    <Content Include="App\dist\fonts\fontawesome-webfont.ttf" />
+    <Content Include="App\dist\fonts\fontawesome-webfont.woff" />
+    <Content Include="App\dist\fonts\fontawesome-webfont.woff2" />
+    <Content Include="App\dist\fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\contentcollector - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
