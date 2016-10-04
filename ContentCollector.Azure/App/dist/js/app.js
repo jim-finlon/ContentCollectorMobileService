@@ -6,6 +6,7 @@
     angular.module('app').config(function (uiGmapGoogleMapApiProvider) {
         uiGmapGoogleMapApiProvider.configure({
             //key: 'get a key at https://console.developers.google.com'
+            key: 'AIzaSyChoRWbL0V1ouvBeAbeIfwq3a5DwiH8KKA'
             // v: '3.20', //defaults to latest 3.X anyhow
             // libraries: 'weather,geometry,visualization'
         });
