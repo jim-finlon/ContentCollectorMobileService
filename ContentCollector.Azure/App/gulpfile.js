@@ -152,6 +152,8 @@ function buildProd(){
 
 gulp.task('buildServeProd', ['buildProd'], serve);
 
+gulp.task('serve', serve);
+
 function serve(){
     browserSync.init({
         server: {
