@@ -12,6 +12,7 @@ var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var jscs = require('gulp-jscs');
+var ngAnnotate = require('gulp-ng-annotate');
 
 // Set the banner content
 var banner = ['/*!\n',
@@ -128,6 +129,7 @@ function buildProd(){
             .pipe(gulp.dest('./dist/js')), {name: 'bower', addRootSlash: false}
             ))
         .pipe(inject(gulp.src('js/**/*')
+            .pipe(ngAnnotate())
             .pipe(concat('app.js'))
             .pipe(uglify())
             .pipe(rename({suffix: '.min'}))
